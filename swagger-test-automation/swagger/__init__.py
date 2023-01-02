@@ -1,10 +1,9 @@
 from utils.logger import Logger
 from utils.result_formatter import get_final_verdict
 from logging.config import dictConfig
-import time
 import uuid
 
-from flask import Flask, Response, json, jsonify, make_response, request
+from flask import Flask, Response, json, jsonify, make_response, request, render_template
 
 from testData import tests
 from tests import e2e
@@ -13,30 +12,8 @@ logger = Logger().get_logger()
 
 
 def create_app(test_config=None) -> Flask:
-    # create and configure the app
-
-    dictConfig(
-        {
-            "version": 1,
-            "formatters": {
-                "default": {
-                    "format": "[%(asctime)s] [%(levelname)s | %(module)s] %(message)s",
-                    "datefmt": "%B %d, %Y %H:%M:%S %Z",
-                },
-            },
-            "handlers": {
-                "console": {
-                    "class": "logging.StreamHandler",
-                    "formatter": "default",
-                },
-            },
-            "root": {"level": "INFO", "handlers": ["console"]},
-        }
-    )
-
     app = Flask(__name__, instance_relative_config=True)
     app.debug = True
-    # app.config["DEBUG"] = False
 
     @app.route("/swagger/status/<string:id>", methods=["GET"])
     def giving_status(identity) -> Response:

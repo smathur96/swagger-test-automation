@@ -1,1 +1,11 @@
+tests/__init__.py
+tests/e2e-test/__init__.py
+.cache/
+.idea/
+__pycache__
+*.pyc
+*.pyo
+*.DS_Store
+*.env
+*.Python
 venv/
