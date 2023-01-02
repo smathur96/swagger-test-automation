@@ -98,16 +98,5 @@ class PetService(BaseClass):
                 }
             )
             return result
-        # if validate_response(pet, response["data"]):
-        #     result.update(
-        #         {self.update_pet.__name__ + "_response_validation": "Response Validated"}
-        #     )
-        # else:
-        #     result.update(
-        #         {self.update_pet.__name__ + "_response_validation": "Response not matched"}
-        #     )
-        #     result.update({self.update_pet.__name__: "Test Case Failed"})
-        #     return result
         result.update({self.get_pet.__name__: "Test Case Passed"})
         return result
-    
