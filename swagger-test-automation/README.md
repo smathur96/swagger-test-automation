@@ -44,4 +44,3 @@ If you are setting up Pycharm for first time on your machine, then you need to s
     "tags_list": ["pet"]
 }`
 3. tags_list is a list containing which test cases to run, which maps with tag_list in file `testData/tests.py`
-

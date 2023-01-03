@@ -3,9 +3,8 @@ user_payload = {
     "username": "string",
     "firstName": "string",
     "lastName": "string",
-    
     "email": "string",
     "password": "string",
     "phone": "string",
-    "userStatus": 0
+    "userStatus": 0,
 }

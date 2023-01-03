@@ -5,6 +5,8 @@ service_key_mappings = {
         "get_pet",
     ],
     "user_service": [
-    
-    ]
+        "create_user",
+        "update_user",
+        "get_user",
+    ],
 }

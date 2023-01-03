@@ -1,5 +1,6 @@
-import uuid
 import logging
+import uuid
+
 from flask.logging import default_handler
 
 
@@ -48,7 +49,7 @@ class Log:
 class Logger:
     def __init__(self):
         self.logger = logging.Logger(__name__)
-    
+
     def get_logger(self):
         self.logger.addHandler(default_handler)
         return self.logger

@@ -1,3 +1,1 @@
-urls = {
-    "get_pet": "/findByStatus"
-}
+urls = {"get_pet": "/findByStatus"}

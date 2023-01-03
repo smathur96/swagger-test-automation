@@ -1,4 +1,4 @@
 urls = {
-    "create_users": "/createWithArray",
+    "create_user": "/createWithArray",
     "get_or_update_user": "/{username}",
 }

@@ -1,15 +1,15 @@
-from testData.mappings import service_key_mappings
-from utils.logger import Log, Logger
 from petstore import Pet, User
 from petstore.pet_service.pet_service import PetService
 from petstore.user_service.user_service import UserService
+from testData.mappings import service_key_mappings
+from utils.logger import Log, Logger
 
 logger = Logger().get_logger()
 
 
 def setup_swagger(
-        payload: dict,
-        unique_id: str,
+    payload: dict,
+    unique_id: str,
 ) -> object:
     """
     Function initialises the instances of all services and returns them
@@ -19,7 +19,7 @@ def setup_swagger(
     :param unique_id: The logger execution id
     :return: instance of conversion service
     """
-    
+
     log = Log(execution_id=unique_id)
     if "swagger" in list(payload.keys()):
         swagger_instance = Pet(
@@ -52,9 +52,9 @@ def test_cases_parser(case):
 
 
 def test_e2e(
-        payload: dict,
-        test_cases: list,
-        unique_id: str,
+    payload: dict,
+    test_cases: list,
+    unique_id: str,
 ) -> str:
     # TODO get data from test cases and pass it respective functions
     """
@@ -64,14 +64,11 @@ def test_e2e(
     :param unique_id: The logger execution id
     """
     if "swagger" in list(payload.keys()):
-        (
-            pet_service_instance,
-            user_service_instance,
-        ) = setup_swagger(
+        (pet_service_instance, user_service_instance,) = setup_swagger(
             payload,
             unique_id,
         )
-    
+
     final_result = ""
     for each_case in test_cases:
         all_methods = []
@@ -87,17 +84,26 @@ def test_e2e(
                 try:
                     case_result = eval(method_mappings[method] + f"({parameters})")
                 except Exception as e:
-                    case_result = {method: "Exception caught in automation framework, Reason: " + str(e)}
+                    case_result = {
+                        method: "Exception caught in automation framework, Reason: "
+                        + str(e)
+                    }
                     logger.error(case_result[method])
                 if (
-                        case_result.get(method, "Something went wrong with automation framework")
-                        != "Test Case Passed"
+                    case_result.get(
+                        method, "Something went wrong with automation framework"
+                    )
+                    != "Test Case Passed"
                 ):
                     passed = 1
                     all_methods.append(
                         {
-                            str(name): str(method) + ";        Reason:     " + str(
-                                case_result.get(method, "Something went wrong with IT framework")
+                            str(name): str(method)
+                            + ";        Reason:     "
+                            + str(
+                                case_result.get(
+                                    method, "Something went wrong with IT framework"
+                                )
                             )
                         }
                     )
@@ -108,18 +114,22 @@ def test_e2e(
         else:
             status = "Failed"
         final_result = (
-                final_result
-                + str(each_case.get("unique_id"))
-                + "           "
-                + str(each_case.get("description"))
-                + "           "
-                + status
-                + "\n"
+            final_result
+            + str(each_case.get("unique_id"))
+            + "           "
+            + str(each_case.get("description"))
+            + "           "
+            + status
+            + "\n"
         )
         for i in range(len(all_methods)):
             key_list = list(all_methods[i])
             key = key_list[0]
             final_result = (
-                    final_result + str(key) + "           " + str(all_methods[i].get(key)) + "\n"
+                final_result
+                + str(key)
+                + "           "
+                + str(all_methods[i].get(key))
+                + "\n"
             )
     return final_result

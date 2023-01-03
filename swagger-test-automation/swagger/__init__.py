@@ -1,12 +1,19 @@
-from utils.logger import Logger
-from utils.result_formatter import get_final_verdict
-from logging.config import dictConfig
 import uuid
+from logging.config import dictConfig
 
-from flask import Flask, Response, json, jsonify, make_response, request, render_template
-
+from flask import (
+    Flask,
+    Response,
+    json,
+    jsonify,
+    make_response,
+    render_template,
+    request,
+)
 from testData import tests
 from tests import e2e
+from utils.logger import Logger
+from utils.result_formatter import get_final_verdict
 
 logger = Logger().get_logger()
 
@@ -39,11 +46,11 @@ def create_app(test_config=None) -> Flask:
         params = json.loads(params)
         tags_list = params.get("tags_list")
         unique_id = str(uuid.uuid4())
-        
+
         validate_testcases(tests.test_cases)
 
         response = make_response(
-            jsonify({"id": unique_id, "info": f"You can check logs for any issues."}),
+            jsonify({"id": unique_id, "info": "You can check logs for any issues."}),
             200,
         )
 
@@ -53,12 +60,12 @@ def create_app(test_config=None) -> Flask:
             :return:
             """
             with app.app_context():
-                test_report = response_call_on_close(
-                    params, unique_id, tags_list
-                )
+                test_report = response_call_on_close(params, unique_id, tags_list)
                 result = get_final_verdict(test_report)
                 print(result)
+
         return response
+
     return app
 
 
@@ -75,14 +82,18 @@ def validate_testcases(test_cases: list) -> None:
         assert (
             test_case.get("description") is not None
         ), "Please provide description for the testcase"
-        assert test_case.get("tag_list") is not None, "Please provide a tag for the testcase"
-        assert test_case.get("case") is not None, "Please provide a cases list for the testcase"
-        assert len(test_case.get("case")) > 0, "Please provide at least 1 test case to run"
+        assert (
+            test_case.get("tag_list") is not None
+        ), "Please provide a tag for the testcase"
+        assert (
+            test_case.get("case") is not None
+        ), "Please provide a cases list for the testcase"
+        assert (
+            len(test_case.get("case")) > 0
+        ), "Please provide at least 1 test case to run"
 
 
-def response_call_on_close(
-    payload: dict, unique_id: str, tags: list
-) -> str:
+def response_call_on_close(payload: dict, unique_id: str, tags: list) -> str:
     """
     It will be called when swagger/run_tests will be completed
     :param payload: The Swagger payload

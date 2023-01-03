@@ -1,6 +1,4 @@
-def get_final_verdict(
-    test_report: str
-) -> str:
+def get_final_verdict(test_report: str) -> str:
     """
     :param test_report: The test_report in the string format
     :return: The body in string format
