@@ -1,4 +1,4 @@
-def get_final_verdict(test_report: str) -> str:
+def get_final_verdict(test_report: str) -> list:
     """
     :param test_report: The test_report in the string format
     :return: The body in string format
@@ -16,4 +16,5 @@ def get_final_verdict(test_report: str) -> str:
                 + str(line_array[2])
                 + "\t\t\t"
             )
-    return msg
+        print(msg)
+        return line_array
