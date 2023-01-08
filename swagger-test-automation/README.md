@@ -35,7 +35,7 @@ If you are setting up Pycharm for first time on your machine, then you need to s
 1. `python -m swagger`
 2.  Hit APIs from Postman or Curl as we are using Flask request/response model
     Since, server will be up at 5010, so use the following to hit the requests.
-    URL: GET `http://localhost:5010/swagger/run_tests`
+    URL: POST `http://localhost:5010/swagger/run_tests`
     Payload: `{
     "swagger": {
         "api_key": "special-key",
@@ -44,3 +44,5 @@ If you are setting up Pycharm for first time on your machine, then you need to s
     "tags_list": ["pet"]
 }`
 3. tags_list is a list containing which test cases to run, which maps with tag_list in file `testData/tests.py`
+4. For generating a very basic PDF report of the final result and test cases executed, use the ID received in `run_tests` API response like:
+    URL: GET `http://localhost:5010/download/report/{id}`
