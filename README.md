@@ -1,1 +1,0 @@
-# swagger-test-automation
